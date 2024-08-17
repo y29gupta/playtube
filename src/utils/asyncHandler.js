@@ -1,6 +1,11 @@
 const asyncHandler=(reqhandle)=>{
    return (req,res,next)=>{
-        return Promise.resolve(reqhandle(req,res,next)).catch(err=>next(err))
+        return Promise.resolve(reqhandle(req,res,next))
+        .catch((err)=>{
+
+            console.log("async Handler error",err.message)
+            res.status(400).json({message:err.message})
+        })
     }
 }
 
@@ -17,4 +22,4 @@ const asyncHandler=(reqhandle)=>{
 //     }
 // }
 
-export default asyncHandler
+export  {asyncHandler}
